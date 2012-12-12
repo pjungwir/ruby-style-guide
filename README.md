@@ -98,7 +98,7 @@ Translations of the guide are available in the following languages:
     end
     ```
 
-* Use Unix-style line endings. (*BSD/Solaris/Linux/OSX users are covered by default,
+* Use Unix-style line endings. (\*BSD/Solaris/Linux/OSX users are covered by default,
   Windows users have to be extra careful.)
     * If you're using Git you might want to add the following
     configuration setting to protect your project from Windows line
@@ -106,8 +106,10 @@ Translations of the guide are available in the following languages:
 
         $ git config --global core.autocrlf true
 
-* Use spaces around operators, after commas, colons and semicolons, around `{`
-  and before `}`. Whitespace might be (mostly) irrelevant to the Ruby
+* Use spaces around operators and after commas, colons and semicolons.
+  Don't use spaces for anonymous blocks passed to `each`, `map`, and kin,
+  unless the expression inside is very complex.
+  Whitespace might be (mostly) irrelevant to the Ruby
   interpreter, but its proper use is the key to writing easily
   readable code.
 
@@ -115,7 +117,7 @@ Translations of the guide are available in the following languages:
     sum = 1 + 2
     a, b = 1, 2
     1 > 2 ? true : false; puts 'Hi'
-    [1, 2, 3].each { |e| puts e }
+    [1, 2, 3].each{|e| puts e}
     ```
 
     One exception is when using the exponent operator:
@@ -268,7 +270,7 @@ Translations of the guide are available in the following languages:
     end
 
     # good
-    arr.each { |elem| puts elem }
+    arr.each{|elem| puts elem}
     ```
 
 * Never use `then` for multi-line `if/unless`.
@@ -470,7 +472,7 @@ Translations of the guide are available in the following languages:
     names = ['Bozhidar', 'Steve', 'Sarah']
 
     # good
-    names.each { |name| puts name }
+    names.each{|name| puts name}
 
     # bad
     names.each do |name|
@@ -478,19 +480,19 @@ Translations of the guide are available in the following languages:
     end
 
     # good
-    names.select { |name| name.start_with?('S') }.map { |name| name.upcase }
+    names.select{|name| name.start_with?('S')}.map{|name| name.upcase}
 
     # bad
     names.select do |name|
       name.start_with?('S')
-    end.map { |name| name.upcase }
+    end.map{|name| name.upcase}
     ```
 
 * When chaining several blocks, use whitespace to align the start of each block.
 
     ```Ruby
-    names.select { |name| name.start_with?("S") }
-         .map    { |name| name.upcase }
+    names.select{|name| name.start_with?("S")}
+         .map{|name| name.upcase}
          .sort
          .join(', ')
     ```
@@ -662,11 +664,11 @@ you if you forget either of the rules above!
 
     ```Ruby
     # bad
-    lambda = ->(a, b) { a + b }
+    lambda = ->(a, b) {a + b}
     lambda.(1, 2)
 
     # good
-    lambda = lambda { |a, b| a + b }
+    lambda = lambda{|a, b| a + b}
     lambda.call(1, 2)
     ```
 
@@ -674,10 +676,10 @@ you if you forget either of the rules above!
 
     ```Ruby
     # bad
-    result = hash.map { |k, v| v + 1 }
+    result = hash.map{|k, v| v + 1}
 
     # good
-    result = hash.map { |_, v| v + 1 }
+    result = hash.map{|_, v| v + 1}
     ```
 
 ## Naming
@@ -729,7 +731,7 @@ you if you forget either of the rules above!
         res = []
 
         each do |e|
-          [*e].each { |f| res << f }
+          [*e].each{|f| res << f}
         end
 
         replace(res)
@@ -789,7 +791,6 @@ you if you forget either of the rules above!
 * Comment what is implicit or unseen in your code,
   e.g. performance implications, interoperating with other code
   somewhere else, etc.
-  
   These sort of comments are like annotations to a chess game.
   There's no need to say that `Ne5` means "knight to a central square,"
   but it might help to say, "threatening to win a rook after `... 13. Nf7`."
